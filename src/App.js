@@ -6,7 +6,7 @@ function App() {
   return (
     <div>
       <h1>My Money</h1>
-      {JSON.stringify(data.data)}
+      {!data.loading && JSON.stringify(data.data)}
       {data.loading && <p>Carregando...</p>}
     </div>
   );
