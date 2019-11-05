@@ -29,10 +29,12 @@ const init = baseUrl => {
         const carregar = async() => {
             dispatch({type: 'REQUEST'})
             const res = await axios.get(`${baseUrl}/${resource}.json`)
-              dispatch({type: 'SUCCESS', data: res.data})
+            dispatch({type: 'SUCCESS', data: res.data})
         }
         useEffect(() =>   {
-          carregar()
+          
+            carregar()
+
         }, [resource])
         return {
             ...data,

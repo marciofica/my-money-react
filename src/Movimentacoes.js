@@ -18,17 +18,19 @@ const Movimentacoes = ({match}) => {
   }
 
   const onChangeValor = (evt) => {
-    setValor(parseFloat(evt.target.value))
+    setValor(evt.target.value)
   }
 
   const salvarMovimentacao = async () => {
-    await salvar({
-      descricao,
-      valor
-    })
-    setDescricao('')
-    setValor(0)
-    data.refetch()
+    if(!isNaN(valor) && valor.search(/^[-]?\d+(\.)?\d+?$/) >= 0) {
+      await salvar({
+        descricao,
+        valor: parseFloat(valor)
+      })
+      setDescricao('')
+      setValor(0)
+      data.refetch()
+    }
   }
 
   const removerMovimentacao = async(id) => {
@@ -46,7 +48,7 @@ const Movimentacoes = ({match}) => {
           <thead>
             <tr>
               <th>Descrição</th>
-              <th>Valor</th>
+              <th className='text-right'>Valor</th>
               <th>&nbsp;</th>
             </tr>
           </thead>
@@ -56,17 +58,19 @@ const Movimentacoes = ({match}) => {
                 return(
                   <tr key={item}>
                     <td>{data.data[item].descricao}</td>
-                    <td>{data.data[item].valor}</td>
-                    <td><button className='btn btn-sm btn-danger' onClick={() => removerMovimentacao(item)}>Remover</button></td>
+                    <td className='text-right'>{data.data[item].valor}</td>
+                    <td className='text-center' style={{width:'5%'}}><button className='btn btn-sm btn-danger' onClick={() => removerMovimentacao(item)}><i className="fas fa-trash-alt"></i></button></td>
                   </tr>
                 )
               })
             }
             <tr>
-              <td><input type='text' id='descricao' value={descricao} onChange={onChangeDescricao} placeholder='Descrição' /></td>
+              <td><input className='form-control' type='text' id='descricao' value={descricao} onChange={onChangeDescricao} placeholder='Descrição' /></td>
               <td>
-                <input type='text' id='valor' value={valor} onChange={onChangeValor} placeholder='Valor' />
-                <button onClick={salvarMovimentacao} className='btn btn-sm btn-secondary ml-1'>+</button>  
+                <input className='form-control' type='text' id='valor' value={valor} onChange={onChangeValor} placeholder='Valor' />  
+              </td>
+              <td className='text-center' style={{width:'17%'}}>
+                <button onClick={salvarMovimentacao} className='btn btn-sm btn-primary py-2'><i className="fas fa-plus"></i> Movimentação</button>
               </td>
             </tr>
           </tbody>
