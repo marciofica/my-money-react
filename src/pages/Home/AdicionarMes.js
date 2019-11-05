@@ -3,8 +3,7 @@ import React from 'react'
 const AdicionarMes = () => {
     return(
         <React.Fragment>
-            <h2>Adicionar mês</h2>
-            <form className='form-inline'>
+            <form className='form-inline mt-3'>
                 <select className='custom-select my-1 mr-sm-2'>
                     <option value='2019'>2019</option>
                     <option value='2020'>2020</option>

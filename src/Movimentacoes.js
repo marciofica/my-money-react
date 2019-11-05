@@ -1,12 +1,41 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Rest from './utils/rest'
 import Loading from './elements/Loading'
 
 const baseUrl = 'https://mymoney-fa461.firebaseio.com'
-const {useGet} = Rest(baseUrl)
+const {useGet, usePost, useDelete} = Rest(baseUrl)
 
 const Movimentacoes = ({match}) => {
   const data = useGet(`/movimentacoes/${match.params.data}`)
+  const [postData, salvar] = usePost(`/movimentacoes/${match.params.data}`)
+  const [removeData, remover] = useDelete()
+
+  const [descricao, setDescricao] = useState('')
+  const [valor, setValor] = useState('')
+
+  const onChangeDescricao = (evt) => {
+    setDescricao(evt.target.value)
+  }
+
+  const onChangeValor = (evt) => {
+    setValor(parseFloat(evt.target.value))
+  }
+
+  const salvarMovimentacao = async () => {
+    await salvar({
+      descricao,
+      valor
+    })
+    setDescricao('')
+    setValor(0)
+    data.refetch()
+  }
+
+  const removerMovimentacao = async(id) => {
+    await remover(`/movimentacoes/${match.params.data}/${id}`)
+    data.refetch()
+  }
+
   if(data.loading) { return  <Loading /> }
   if(!data.data){ return <div className='container text-center mt-3'>Nenhuma movimentação por aqui!</div>}
   if(Object.keys(data.data).length > 0) {
@@ -18,6 +47,7 @@ const Movimentacoes = ({match}) => {
             <tr>
               <th>Descrição</th>
               <th>Valor</th>
+              <th>&nbsp;</th>
             </tr>
           </thead>
           <tbody>
@@ -27,10 +57,18 @@ const Movimentacoes = ({match}) => {
                   <tr key={item}>
                     <td>{data.data[item].descricao}</td>
                     <td>{data.data[item].valor}</td>
+                    <td><button className='btn btn-sm btn-danger' onClick={() => removerMovimentacao(item)}>Remover</button></td>
                   </tr>
                 )
               })
             }
+            <tr>
+              <td><input type='text' id='descricao' value={descricao} onChange={onChangeDescricao} placeholder='Descrição' /></td>
+              <td>
+                <input type='text' id='valor' value={valor} onChange={onChangeValor} placeholder='Valor' />
+                <button onClick={salvarMovimentacao} className='btn btn-sm btn-secondary ml-1'>+</button>  
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
