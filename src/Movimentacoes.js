@@ -11,7 +11,7 @@ const Movimentacoes = ({match}) => {
   if(Object.keys(data.data).length > 0) {
     return(
       <div className='container'>
-        <h3>Movimentações</h3>
+        <h5 className='my-2'>Movimentações / {match.params.data}</h5>
         <table className='table'>
           <thead>
             <tr>
