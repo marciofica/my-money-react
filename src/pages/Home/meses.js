@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import Rest from '../../utils/rest'
+import Loading from '../../elements/Loading'
 
 const baseUrl = 'https://mymoney-fa461.firebaseio.com'
 const {useGet} = Rest(baseUrl)
@@ -8,7 +9,7 @@ const {useGet} = Rest(baseUrl)
 const Meses = () => {
     const data = useGet('meses')
     
-    if(data.loading) { return  <span>Carregando...</span> }
+    if(data.loading) { return  <Loading /> }
     if(Object.keys(data.data).length > 0) {
         return (
                 <table className='table mt-2'>

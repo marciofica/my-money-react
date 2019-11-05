@@ -1,12 +1,13 @@
 import React from 'react'
 import Rest from './utils/rest'
+import Loading from './elements/Loading'
 
 const baseUrl = 'https://mymoney-fa461.firebaseio.com'
 const {useGet} = Rest(baseUrl)
 
 const Movimentacoes = ({match}) => {
   const data = useGet(`/movimentacoes/${match.params.data}`)
-  if(data.loading) { return  <span>Carregando...</span> }
+  if(data.loading) { return  <Loading /> }
   if(!data.data){ return <div className='container text-center mt-3'>Nenhuma movimentação por aqui!</div>}
   if(Object.keys(data.data).length > 0) {
     return(
