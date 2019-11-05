@@ -25,8 +25,7 @@ const reducer = (state, action) => {
 
 const init = baseUrl => {
     const useGet = resource => {
-        const [data, dispatch] = useReducer(reducer, INITIAL_STATE)
-        
+        const [data, dispatch] = useReducer(reducer, INITIAL_STATE)   
         useEffect(() =>   {
           dispatch({type: 'REQUEST'})
           axios
@@ -39,8 +38,7 @@ const init = baseUrl => {
     }
 
     const usePost = resource => {
-        const [data, dispatch] = useReducer(reducer, {INITIAL_STATE})
-    
+        const [data, dispatch] = useReducer(reducer, INITIAL_STATE)
         const post = data => {
             dispatch({type: 'REQUEST'})
             axios
@@ -56,8 +54,7 @@ const init = baseUrl => {
     }
 
     const useDelete = () => {
-        const [data, dispatch] = useReducer(reducer, INITIAL_STATE)
-    
+        const [data, dispatch] = useReducer(reducer, INITIAL_STATE)  
         const remove = resource => {
             dispatch({type: 'REQUEST'})
             axios

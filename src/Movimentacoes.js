@@ -1,0 +1,40 @@
+import React from 'react'
+import Rest from './utils/rest'
+
+const baseUrl = 'https://mymoney-fa461.firebaseio.com'
+const {useGet} = Rest(baseUrl)
+
+const Movimentacoes = ({match}) => {
+  const data = useGet(`/movimentacoes/${match.params.data}`)
+  if(data.loading) { return  <span>Carregando...</span> }
+  if(!data.data){ return <div className='container text-center mt-3'>Nenhuma movimentação por aqui!</div>}
+  if(Object.keys(data.data).length > 0) {
+    return(
+      <div className='container'>
+        <h3>Movimentações</h3>
+        <table className='table'>
+          <thead>
+            <tr>
+              <th>Descrição</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            { data.data &&
+              Object.keys(data.data).map(item => {
+                return(
+                  <tr key={item}>
+                    <td>{data.data[item].descricao}</td>
+                    <td>{data.data[item].valor}</td>
+                  </tr>
+                )
+              })
+            }
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+}
+
+export default Movimentacoes
