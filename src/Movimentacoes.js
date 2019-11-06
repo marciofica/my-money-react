@@ -28,7 +28,7 @@ const Movimentacoes = ({match}) => {
         valor: parseFloat(valor)
       })
       setDescricao('')
-      setValor(0)
+      setValor('')
       data.refetch()
     }
   }
@@ -39,8 +39,8 @@ const Movimentacoes = ({match}) => {
   }
 
   if(data.loading) { return  <Loading /> }
-  if(!data.data){ return <div className='container text-center mt-3'>Nenhuma movimentação por aqui!</div>}
-  if(Object.keys(data.data).length > 0) {
+  //if(!data.data){ return <div className='container text-center mt-3'>Nenhuma movimentação por aqui!</div>}
+  //if(Object.keys(data.data).length > 0) {
     return(
       <div className='container'>
         <h5 className='my-2'>Movimentações / {match.params.data}</h5>
@@ -70,14 +70,14 @@ const Movimentacoes = ({match}) => {
                 <input className='form-control' type='text' id='valor' value={valor} onChange={onChangeValor} placeholder='Valor' />  
               </td>
               <td className='text-center' style={{width:'17%'}}>
-                <button onClick={salvarMovimentacao} className='btn btn-sm btn-primary py-2'><i className="fas fa-plus"></i> Movimentação</button>
+                <button onClick={salvarMovimentacao} className='btn btn-sm btn-primary py-2'><i className="fas fa-plus"></i> Adicionar</button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     )
-  }
+  //}
 }
 
 export default Movimentacoes
