@@ -28,8 +28,13 @@ const init = baseUrl => {
         const [data, dispatch] = useReducer(reducer, INITIAL_STATE)
         const carregar = async() => {
             dispatch({type: 'REQUEST'})
-            const res = await axios.get(`${baseUrl}/${resource}.json`)
-            dispatch({type: 'SUCCESS', data: res.data})
+            try {
+                const res = await axios.get(`${baseUrl}/${resource}.json`)
+                dispatch({type: 'SUCCESS', data: res.data == null?{data:null}:res.data})
+            } catch(error) {
+                dispatch({type: 'SUCCESS', data: {data: null}, loading: false})
+            }
+            
         }
         useEffect(() =>   {
           

@@ -83,7 +83,7 @@ const Movimentacoes = ({match}) => {
             </tr>
           </thead>
           <tbody>
-            { data.data &&
+            { (data.data.data !== null && data.data) &&
               Object.keys(data.data).map(item => {
                 return(
                   <tr key={item}>

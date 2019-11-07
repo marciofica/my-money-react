@@ -10,6 +10,14 @@ const Meses = () => {
     const data = useGet('meses')
     
     if(data.loading) { return  <Loading /> }
+    if(data.data.data === null){
+        return(
+            <div className='container text-center'>
+                Nenhum mês ainda cadastrado por aqui!
+            </div>
+        )
+
+    }
     if(Object.keys(data.data).length > 0) {
         return (
                 <table className='table mt-2'>
