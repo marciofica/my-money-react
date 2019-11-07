@@ -72,7 +72,7 @@ const Movimentacoes = ({match}) => {
   }
 
   const alterarPrevisaoSaida = async(evt) => {
-    await patch(`/meses/${match.params.data}`, {previsao_saida: evt.target.value})
+    await patch(`/meses/${match.params.data}`, {previsao_saida: previsaoSaida})
     setPopoverSaidaOpen(false)
   }
 
